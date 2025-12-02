@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Restaurant - 100% Working</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">Universal <span>Restaurant</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#restaurants">Restaurants</a></li>
+                    <li><a href="#profile" id="profileLink" style="display:none;">Profile</a></li>
+                    <li><a href="#" id="loginLink">Login / Register</a></li>
+                    <li><a href="#" id="logoutLink" style="display:none;">Logout</a></li>
+                    <li><a href="#admin" id="adminLink" style="display:none;">Admin</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Universal Restaurant<br><span>Table Booking Platform</span></h1>
+            <p>Real-time • Favorites • Profile • Admin Panel • 100% Working</p>
+            <a href="#restaurants" class="btn scroll-btn">Explore Now</a>
+        </div>
+    </section>
+
+    <!-- Restaurants -->
+    <section id="restaurants">
+        <div class="container">
+            <h2>Restaurant <span>Directory</span></h2>
+            <div class="filters">
+                <input type="text" id="searchInput" placeholder="Search...">
+                <select id="locationFilter"><option value="">All Locations</option><option>New York</option><option>London</option><option>Tokyo</option><option>Paris</option></select>
+                <select id="cuisineFilter"><option value="">All Cuisines</option><option>Italian</option><option>Japanese</option><option>Mexican</option><option>French</option></select>
+                <select id="ratingFilter"><option value="">Any Rating</option><option value="4">4+ Stars</option><option value="4.5">4.5+ Stars</option></select>
+            </div>
+            <div id="restaurantGrid" class="grid"></div>
+        </div>
+    </section>
+
+    <!-- Profile & Admin (hidden by default) -->
+    <section id="profile" style="display:none; padding:100px 0;">
+        <div class="container">
+            <h2>Your <span>Profile</span></h2>
+            <div class="profile-preview">
+                <div class="profile-header">
+                    <i class="fas fa-user-circle profile-icon"></i>
+                    <div>
+                        <h3 id="profileName">Guest</h3>
+                        <p id="profileEmail">guest@example.com</p>
+                    </div>
+                </div>
+                <button id="editProfileBtn" class="btn">Edit Profile</button>
+            </div>
+            <h3>Favorites</h3>
+            <div id="favoritesList" class="grid"></div>
+            <h3>Booking History</h3>
+            <div id="bookingHistory" class="grid"></div>
+        </div>
+    </section>
+
+    <section id="admin" style="display:none; padding:100px 0;">
+        <div class="container">
+            <h2>Admin <span>Dashboard</span></h2>
+            <div class="analytics-grid" id="analytics"></div>
+            <h3 style="margin-top:3rem;">Bookings</h3>
+            <div id="allBookings" class="grid"></div>
+        </div>
+    </section>
+
+    <!-- Modals (Booking, Auth, Edit Profile) -->
+    <div id="bookingModal" class="modal"><div class="modal-content premium-modal">
+        <div class="modal-header"><h2>Book a Table</h2><span class="close">×</span></div>
+        <div class="modal-body">
+            <h3 class="restaurant-title"><i class="fas fa-utensils"></i> <span id="restaurantName"></span></h3>
+            <div id="availabilityInfo" class="availability-box"></div>
+            <form id="bookingForm" class="premium-form">
+                <div class="form-grid">
+                    <div class="form-group"><label>Date</label><input type="text" id="date" required></div>
+                    <div class="form-group"><label>Time</label><input type="text" id="time" required></div>
+                </div>
+                <div class="form-group"><label>Table Type</label>
+                    <select id="seats" required>
+                        <option value="">Select</option>
+                        <option value="2">2 Seats</option>
+                        <option value="4">4 Seats</option>
+                        <option value="6">6 Seats</option>
+                        <option value="VIP">VIP Room</option>
+                    </select>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group"><label>Name</label><input type="text" id="name" required></div>
+                    <div class="form-group"><label>Email</label><input type="email" id="email" required></div>
+                </div>
+                <div class="form-group"><label>Phone (optional)</label><input type="tel" id="phone"></div>
+                <button type="submit" class="btn premium-btn">Confirm Booking</button>
+            </form>
+        </div>
+    </div></div>
+
+    <div id="authModal" class="modal"><div class="modal-content premium-modal">
+        <div class="modal-header"><h2 id="authTitle">Welcome Back</h2><span class="close">×</span></div>
+        <div class="modal-body">
+            <div class="auth-tabs">
+                <button class="tab-active" id="loginTab">Login</button>
+                <button id="registerTab">Register</button>
+            </div>
+            <form id="authForm" class="premium-form">
+                <div class="form-group"><label>Username</label><input type="text" id="username" required></div>
+                <div class="form-group"><label>Password</label><input type="password" id="password" required></div>
+                <div class="form-group" id="emailField" style="display:none;"><label>Email</label><input type="email" id="emailAuth" required></div>
+                <button type="submit" class="btn premium-btn" id="authBtn">Login Now</button>
+            </form>
+            <div class="auth-footer">
+                <p><strong>Demo:</strong> user / pass | admin / admin</p>
+            </div>
+        </div>
+    </div></div>
+
+    <div id="editProfileModal" class="modal"><div class="modal-content premium-modal">
+        <div class="modal-header"><h2>Edit Profile</h2><span class="close">×</span></div>
+        <div class="modal-body">
+            <form id="editProfileForm" class="premium-form">
+                <div class="form-group"><label>Name</label><input type="text" id="editName"></div>
+                <div class="form-group"><label>Email</label><input type="email" id="editEmail"></div>
+                <div class="form-group"><label>Phone</label><input type="tel" id="editPhone"></div>
+                <button type="submit" class="btn premium-btn">Save Changes</button>
+            </form>
+        </div>
+    </div></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="script.js"></script>
+</body>
+</html>
