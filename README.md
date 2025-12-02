@@ -52,7 +52,6 @@ Built with care for learning & showcase purposes
 Feel free to fork, modify, and use in your portfolio!
 
 ## Preview
-
-
+https://sardorbro1.github.io/Mini_Project_Booking_Table/
 
 Enjoy the platform!
